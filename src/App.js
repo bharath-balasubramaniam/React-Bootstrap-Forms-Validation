@@ -124,78 +124,78 @@ class App extends Component {
       //   }
       //   break;
       // }
-      // case "html": {
-      //   if (!value) {
-      //     errors.html = ""; //icon
-      //   } else {
-      //     errors.html = "";
-      //   }
-      //   break;
-      // }
-      // case "css": {
-      //   if (!value) {
-      //     errors.css = ""; //icon
-      //   } else {
-      //     errors.css = "";
-      //   }
-      //   break;
-      // }
-      // case "bootstrap": {
-      //   if (!value) {
-      //     errors.bootstrap = ""; //icon
-      //   } else {
-      //     errors.bootstrap = "";
-      //   }
-      //   break;
-      // }
-      // case "react": {
-      //   if (!value) {
-      //     errors.react = ""; //icon
-      //   } else {
-      //     errors.react = "";
-      //   }
-      //   break;
-      // }
-      // case "dom": {
-      //   if (!value) {
-      //     errors.dom = ""; //icon
-      //   } else {
-      //     errors.dom = "";
-      //   }
-      //   break;
-      // }
-      // case "mysql": {
-      //   if (!value) {
-      //     errors.mysql = ""; //icon
-      //   } else {
-      //     errors.mysql = "";
-      //   }
-      //   break;
-      // }
-      // case "mongodb": {
-      //   if (!value) {
-      //     errors.mongodb = ""; //icon
-      //   } else {
-      //     errors.mongodb = "";
-      //   }
-      //   break;
-      // }
-      // case "node": {
-      //   if (!value) {
-      //     errors.node = ""; //icon
-      //   } else {
-      //     errors.node = "";
-      //   }
-      //   break;
-      // }
-      // case "python": {
-      //   if (!value) {
-      //     errors.python = ""; //icon
-      //   } else {
-      //     errors.python = "";
-      //   }
-      //   break;
-      // }
+      case "html": {
+        if (!value) {
+          errors.html = ""; //icon
+        } else {
+          errors.html = "";
+        }
+        break;
+      }
+      case "css": {
+        if (!value) {
+          errors.css = ""; //icon
+        } else {
+          errors.css = "";
+        }
+        break;
+      }
+      case "bootstrap": {
+        if (!value) {
+          errors.bootstrap = ""; //icon
+        } else {
+          errors.bootstrap = "";
+        }
+        break;
+      }
+      case "react": {
+        if (!value) {
+          errors.react = ""; //icon
+        } else {
+          errors.react = "";
+        }
+        break;
+      }
+      case "dom": {
+        if (!value) {
+          errors.dom = ""; //icon
+        } else {
+          errors.dom = "";
+        }
+        break;
+      }
+      case "mysql": {
+        if (!value) {
+          errors.mysql = ""; //icon
+        } else {
+          errors.mysql = "";
+        }
+        break;
+      }
+      case "mongodb": {
+        if (!value) {
+          errors.mongodb = ""; //icon
+        } else {
+          errors.mongodb = "";
+        }
+        break;
+      }
+      case "node": {
+        if (!value) {
+          errors.node = ""; //icon
+        } else {
+          errors.node = "";
+        }
+        break;
+      }
+      case "python": {
+        if (!value) {
+          errors.python = ""; //icon
+        } else {
+          errors.python = "";
+        }
+        break;
+      }
 
       default: {
         console.log();
@@ -215,23 +215,22 @@ class App extends Component {
     if (this.state.gender === "") {
       errors.gender = "Fill the Gender";
       alert("Fill the Gender");
-    } else if (
-      this.state.html === ""
-      // this.state.css === "" ||
-      // this.state.bootstrap === "" ||
-      // this.state.react === "" ||
-      // this.state.dom === "" ||
-      // this.state.mysql === "" ||
-      // this.state.mongodb === "" ||
-      // this.state.node === "" ||
-      // this.state.python === ""
-    ) {
-      errors.html = '<i class="fas fa-exclamation-triangle"></i>';
-      alert("value is required");
-      console.log(this.state.errors.html);
+    } else {
+      errors.gender = "";
+    }
+    if (this.state.html === "") {
+      console.log(event.key);
+      errors.html = (
+        <>
+          <span className="hide">hii</span>{" "}
+          <i className="fas fa-exclamation-triangle"></i>
+        </>
+      );
+      alert("html value");
+      console.log(errors);
     }
     this.setState({ errors });
-    console.log(this.state.errors.html);
+    console.log(this.state.errors.gender);
     if (this.validation()) {
       alert("Check the submitted value in console");
       console.log(this.state);
@@ -532,7 +531,12 @@ class App extends Component {
                     {Skills.map((obj, ind) => {
                       return (
                         <tr key={ind}>
-                          <td>{obj}</td>
+                          <td>
+                            {obj}
+                            {this.state.errors.html ? (
+                              <span>{this.state.errors.html}</span>
+                            ) : null}
+                          </td>
                           <td>
                             <Form.Check
                               type="radio"
@@ -565,9 +569,6 @@ class App extends Component {
                               onChange={this.handleChange}
                             />
                           </td>
-                          {/* {`this.state.errors.${obj}` ? (
-                            <span>{`this.state.errors.${obj}`}</span>
-                          ) : null} */}
                         </tr>
                       );
                     })}
