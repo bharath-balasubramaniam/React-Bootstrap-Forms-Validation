@@ -18,11 +18,11 @@ class App extends Component {
       addr1: "",
       addr2: "",
       city: "",
-      state: "",
+      state: "Tamil Nadu",
       zip: "",
       email: "",
       gender: "",
-      applyfor: "",
+      applyfor: "front-end",
       html: "",
       css: "",
       bootstrap: "",
@@ -34,10 +34,174 @@ class App extends Component {
       python: "",
       experience: 3,
       comment: "",
+      errors: {
+        fname: "",
+        lname: "",
+        addr1: "",
+        addr2: "",
+        city: "",
+        zip: "",
+        email: "",
+        gender: "",
+        html: "",
+        css: "",
+        bootstrap: "",
+        react: "",
+        dom: "",
+        mysql: "",
+        mongodb: "",
+        node: "",
+        python: "",
+      },
     };
   }
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+    const errors = { ...this.state.errors };
+    switch (name) {
+      case "fname": {
+        if (!value) {
+          errors.fname = "Name is Required";
+        } else {
+          errors.fname = "";
+        }
+        break;
+      }
+      case "lname": {
+        if (!value) {
+          errors.lname = "Name is Required";
+        } else {
+          errors.lname = "";
+        }
+        break;
+      }
+      case "addr1": {
+        if (!value) {
+          errors.addr1 = "Address is Required";
+        } else {
+          errors.addr1 = "";
+        }
+        break;
+      }
+      case "addr2": {
+        if (!value) {
+          errors.addr2 = "Address is Required";
+        } else {
+          errors.addr2 = "";
+        }
+        break;
+      }
+      case "city": {
+        if (!value) {
+          errors.city = "city is Required";
+        } else {
+          errors.city = "";
+        }
+        break;
+      }
+      case "zip": {
+        if (!value) {
+          errors.zip = "zip is Required";
+        } else {
+          errors.zip = "";
+        }
+        break;
+      }
+      case "email": {
+        if (!value) {
+          errors.email = "Email is Required";
+        } else if (!validateEmail.test(value)) {
+          errors.email = "Email is Invalid";
+        } else {
+          errors.email = "";
+        }
+        break;
+      }
+      // case "gender": {
+      //   if (!value) {
+      //     errors.gender = "Gender is Required";
+      //   } else {
+      //     errors.gender = "";
+      //   }
+      //   break;
+      // }
+      // case "html": {
+      //   if (!value) {
+      //     errors.html = ""; //icon
+      //   } else {
+      //     errors.html = "";
+      //   }
+      //   break;
+      // }
+      // case "css": {
+      //   if (!value) {
+      //     errors.css = ""; //icon
+      //   } else {
+      //     errors.css = "";
+      //   }
+      //   break;
+      // }
+      // case "bootstrap": {
+      //   if (!value) {
+      //     errors.bootstrap = ""; //icon
+      //   } else {
+      //     errors.bootstrap = "";
+      //   }
+      //   break;
+      // }
+      // case "react": {
+      //   if (!value) {
+      //     errors.react = ""; //icon
+      //   } else {
+      //     errors.react = "";
+      //   }
+      //   break;
+      // }
+      // case "dom": {
+      //   if (!value) {
+      //     errors.dom = ""; //icon
+      //   } else {
+      //     errors.dom = "";
+      //   }
+      //   break;
+      // }
+      // case "mysql": {
+      //   if (!value) {
+      //     errors.mysql = ""; //icon
+      //   } else {
+      //     errors.mysql = "";
+      //   }
+      //   break;
+      // }
+      // case "mongodb": {
+      //   if (!value) {
+      //     errors.mongodb = ""; //icon
+      //   } else {
+      //     errors.mongodb = "";
+      //   }
+      //   break;
+      // }
+      // case "node": {
+      //   if (!value) {
+      //     errors.node = ""; //icon
+      //   } else {
+      //     errors.node = "";
+      //   }
+      //   break;
+      // }
+      // case "python": {
+      //   if (!value) {
+      //     errors.python = ""; //icon
+      //   } else {
+      //     errors.python = "";
+      //   }
+      //   break;
+      // }
+
+      default: {
+        console.log();
+      }
+    }
+    this.setState({ errors, [name]: value });
   };
   handleSkills = ({ target: { name, value, checked } }) => {
     if ({ [name]: "MERN" || "MEAN" || "Designing" }) {
@@ -47,6 +211,27 @@ class App extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    const errors = { ...this.state.errors };
+    if (this.state.gender === "") {
+      errors.gender = "Fill the Gender";
+      alert("Fill the Gender");
+    } else if (
+      this.state.html === ""
+      // this.state.css === "" ||
+      // this.state.bootstrap === "" ||
+      // this.state.react === "" ||
+      // this.state.dom === "" ||
+      // this.state.mysql === "" ||
+      // this.state.mongodb === "" ||
+      // this.state.node === "" ||
+      // this.state.python === ""
+    ) {
+      errors.html = '<i class="fas fa-exclamation-triangle"></i>';
+      alert("value is required");
+      console.log(this.state.errors.html);
+    }
+    this.setState({ errors });
+    console.log(this.state.errors.html);
     if (this.validation()) {
       alert("Check the submitted value in console");
       console.log(this.state);
@@ -85,10 +270,10 @@ class App extends Component {
       email !== "" &&
       city !== "" &&
       node !== "" &&
-      state !== "" &&
+      state !== "Tamil  Na" &&
       zip !== "" &&
       gender !== "" &&
-      applyfor !== "" &&
+      applyfor !== "front-end" &&
       html !== "" &&
       css !== "" &&
       bootstrap !== "" &&
@@ -137,6 +322,11 @@ class App extends Component {
                     onChange={this.handleChange}
                     required
                   />
+                  {this.state.errors.fname ? (
+                    <p>{this.state.errors.fname}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
                 <Form.Group as={Col} controlId="inputlname4">
                   <Form.Label>Last Name</Form.Label>
@@ -147,6 +337,11 @@ class App extends Component {
                     required
                     name="lname"
                   />
+                  {this.state.errors.lname ? (
+                    <p>{this.state.errors.lname}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
               </Row>
               <Row>
@@ -160,6 +355,11 @@ class App extends Component {
                     required
                     name="addr1"
                   />
+                  {this.state.errors.addr1 ? (
+                    <p>{this.state.errors.addr1}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
                 <Form.Group as={Col} controlId="inputAddress2">
                   <Form.Label>Address 2</Form.Label>
@@ -171,6 +371,11 @@ class App extends Component {
                     onChange={this.handleChange}
                     name="addr2"
                   />
+                  {this.state.errors.addr2 ? (
+                    <p>{this.state.errors.addr2}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
               </Row>
               <Row>
@@ -183,6 +388,11 @@ class App extends Component {
                     onChange={this.handleChange}
                     name="city"
                   />
+                  {this.state.errors.city ? (
+                    <p>{this.state.errors.city}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
                 <Form.Group as={Col} controlId="inputstate">
                   <Form.Label>State</Form.Label>
@@ -209,6 +419,7 @@ class App extends Component {
                     onChange={this.handleChange}
                     name="zip"
                   />
+                  {this.state.errors.zip ? <p>{this.state.errors.zip}</p> : ""}
                 </Form.Group>
               </Row>
               <Row>
@@ -221,6 +432,11 @@ class App extends Component {
                     value={this.state.email}
                     onChange={this.handleChange}
                   />
+                  {this.state.errors.email ? (
+                    <p>{this.state.errors.email}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
                 <Form.Group as={Col} controlId="inputgender">
                   <Form.Label>Gender</Form.Label>
@@ -230,7 +446,7 @@ class App extends Component {
                       value="male"
                       name="gender"
                       onChange={this.handleChange}
-                    />{" "}
+                    />
                     Male
                     <span className="hide">hi</span>
                     <Form.Check
@@ -249,6 +465,11 @@ class App extends Component {
                     Other
                     <span className="hide">hi</span>
                   </InputGroup>
+                  {this.state.errors.gender ? (
+                    <p>{this.state.errors.gender}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
               </Row>
               <br />
@@ -344,6 +565,9 @@ class App extends Component {
                               onChange={this.handleChange}
                             />
                           </td>
+                          {/* {`this.state.errors.${obj}` ? (
+                            <span>{`this.state.errors.${obj}`}</span>
+                          ) : null} */}
                         </tr>
                       );
                     })}
@@ -390,6 +614,7 @@ class App extends Component {
                     ></i>
                   </span>
                 </div>
+
                 <p>
                   (If you're fresher or having experience witin 1 year press 1
                   star, more than 1 year select 2 stars, more than 5 years
@@ -408,6 +633,11 @@ class App extends Component {
                     name="comment"
                     value={this.state.comment}
                   />
+                  {this.state.errors.comment ? (
+                    <p>{this.state.errors.comment}</p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Group>
               </Row>
 
