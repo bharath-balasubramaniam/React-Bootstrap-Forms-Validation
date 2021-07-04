@@ -215,6 +215,7 @@ class App extends Component {
     for (let i = 1; i <= a; i++) {
       document.getElementById(i).classList.add("starbg");
     }
+    this.setState({ experience: a });
     for (let j = a + 1; j <= 5; j++) {
       const a = document.getElementById(j);
       if (a.classList.contains("starbg")) {
