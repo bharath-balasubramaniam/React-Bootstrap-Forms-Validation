@@ -32,7 +32,7 @@ class App extends Component {
       mongodb: "",
       node: "",
       python: "",
-      experience: 3,
+      experience: 0,
       comment: "",
       errors: {
         fname: "",
@@ -116,87 +116,6 @@ class App extends Component {
         }
         break;
       }
-      // case "gender": {
-      //   if (!value) {
-      //     errors.gender = "Gender is Required";
-      //   } else {
-      //     errors.gender = "";
-      //   }
-      //   break;
-      // }
-      // case "html": {
-      //   if (!value) {
-      //     errors.html = ""; //icon
-      //   } else {
-      //     errors.html = "";
-      //   }
-      //   break;
-      // }
-      // case "css": {
-      //   if (!value) {
-      //     errors.css = ""; //icon
-      //   } else {
-      //     errors.css = "";
-      //   }
-      //   break;
-      // }
-      // case "bootstrap": {
-      //   if (!value) {
-      //     errors.bootstrap = ""; //icon
-      //   } else {
-      //     errors.bootstrap = "";
-      //   }
-      //   break;
-      // }
-      // case "react": {
-      //   if (!value) {
-      //     errors.react = ""; //icon
-      //   } else {
-      //     errors.react = "";
-      //   }
-      //   break;
-      // }
-      // case "dom": {
-      //   if (!value) {
-      //     errors.dom = ""; //icon
-      //   } else {
-      //     errors.dom = "";
-      //   }
-      //   break;
-      // }
-      // case "mysql": {
-      //   if (!value) {
-      //     errors.mysql = ""; //icon
-      //   } else {
-      //     errors.mysql = "";
-      //   }
-      //   break;
-      // }
-      // case "mongodb": {
-      //   if (!value) {
-      //     errors.mongodb = ""; //icon
-      //   } else {
-      //     errors.mongodb = "";
-      //   }
-      //   break;
-      // }
-      // case "node": {
-      //   if (!value) {
-      //     errors.node = ""; //icon
-      //   } else {
-      //     errors.node = "";
-      //   }
-      //   break;
-      // }
-      // case "python": {
-      //   if (!value) {
-      //     errors.python = ""; //icon
-      //   } else {
-      //     errors.python = "";
-      //   }
-      //   break;
-      // }
-
       default: {
         console.log();
       }
@@ -210,7 +129,6 @@ class App extends Component {
     }
   };
   handleSubmit = (event) => {
-    console.log(this.state);
     event.preventDefault();
     const errors = { ...this.state.errors };
     const {
@@ -219,15 +137,13 @@ class App extends Component {
     if (this.state.gender === "") {
       errors.gender = "Fill the Gender";
       alert("Fill the Gender");
-    } else {
-      errors.gender = "";
     }
-    // if (this.state.html)
+
+    // eslint-disable-next-line array-callback-return
     Skills.filter((obj) => {
-      console.log(obj, "this.state." + { obj });
-      if (this.state.obj === "") {
-        console.log(obj);
-        return (errors.obj = (
+      if (this.state[obj] === "") {
+        alert(`please fill the ${obj} column in skills`);
+        return (errors[obj] = (
           <>
             <span className="hide">hii</span>{" "}
             <i className="fas fa-exclamation-triangle"></i>
@@ -236,7 +152,6 @@ class App extends Component {
       }
     });
     this.setState({ errors, [name]: value });
-    console.log(this.state.errors.gender);
     if (this.validation()) {
       alert("Check the submitted value in console");
       console.log(this.state);
@@ -275,10 +190,10 @@ class App extends Component {
       email !== "" &&
       city !== "" &&
       node !== "" &&
-      state !== "Tamil  Na" &&
+      state !== "" &&
       zip !== "" &&
       gender !== "" &&
-      applyfor !== "front-end" &&
+      applyfor !== "" &&
       html !== "" &&
       css !== "" &&
       bootstrap !== "" &&
@@ -308,9 +223,52 @@ class App extends Component {
         continue;
       }
     }
-
-    // document.querySelectorAll("i").classList.remove("starbg");
   };
+  handleReset = () => {
+    this.setState({
+      fname: "",
+      lname: "",
+      addr1: "",
+      addr2: "",
+      city: "",
+      state: "Tamil Nadu",
+      zip: "",
+      email: "",
+      gender: "",
+      applyfor: "front-end",
+      html: "",
+      css: "",
+      bootstrap: "",
+      react: "",
+      dom: "",
+      mysql: "",
+      mongodb: "",
+      node: "",
+      python: "",
+      experience: 0,
+      comment: "",
+      errors: {
+        fname: "",
+        lname: "",
+        addr1: "",
+        addr2: "",
+        city: "",
+        zip: "",
+        email: "",
+        gender: "",
+        html: "",
+        css: "",
+        bootstrap: "",
+        react: "",
+        dom: "",
+        mysql: "",
+        mongodb: "",
+        node: "",
+        python: "",
+      },
+    });
+  };
+
   render() {
     return (
       <div className="container">
@@ -539,8 +497,8 @@ class App extends Component {
                         <tr key={ind}>
                           <td>
                             {obj}
-                            {this.state.errors.obj ? (
-                              <span>{this.state.errors.obj}</span>
+                            {this.state.errors[obj] ? (
+                              <span>{this.state.errors[obj]}</span>
                             ) : null}
                           </td>
                           <td>
@@ -640,11 +598,6 @@ class App extends Component {
                     name="comment"
                     value={this.state.comment}
                   />
-                  {this.state.errors.comment ? (
-                    <p>{this.state.errors.comment}</p>
-                  ) : (
-                    ""
-                  )}
                 </Form.Group>
               </Row>
 
@@ -656,7 +609,11 @@ class App extends Component {
                   </button>
                 </Form.Group>
                 <Form.Group as={Col}>
-                  <button type="reset" className="btn btn-danger">
+                  <button
+                    type="reset"
+                    onClick={this.handleReset}
+                    className="btn btn-danger"
+                  >
                     Reset
                   </button>
                 </Form.Group>
